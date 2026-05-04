@@ -34,13 +34,7 @@ async function main() {
     let content = await res.text()
 
     // Remove the awesome badge line from title (already shown in sidebar)
-    content = content.replace(/^#\s+Awesome ACE-Step.*\n/m, '# Awesome ACE-Step\n')
-
-    mkdirSync(dirname(OUTPUT), { recursive: true })
-    writeFileSync(OUTPUT, FRONTMATTER + content, 'utf-8')
-    console.log(`✓ Fetched awesome-ace-step README → ${OUTPUT}`)
-  } catch (err) {
-    console.error(`✗ Failed to fetch awesome-ace-step: ${err.message}`)
+    content = content.replace(/^#.*?\n/, '')   
     // Write a fallback so build doesn't break
     const fallback = FRONTMATTER + `# Awesome ACE-Step\n\nFailed to fetch content. Visit [awesome-ace-step on GitHub](https://github.com/ace-step/awesome-ace-step) directly.\n`
     mkdirSync(dirname(OUTPUT), { recursive: true })
